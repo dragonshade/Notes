@@ -1,0 +1,19 @@
+.dark
+{
+	background-color:black;
+}
+
+body{
+	background-color:#666699;
+}
+
+.section
+{
+	color:red;
+}
+
+.description
+{
+	color:yellow;
+	font-style: italic;
+}
