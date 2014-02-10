@@ -16,14 +16,14 @@
 	#Accessing string
 	string[start,length]
 	string[range]
-	string[/pattern/]  #=>extract match
-	string[/pattern/,capture] #=>capture is the index for matches
+	string[/regex/]  #=>extract match
+	string[/regex/,capture] #=>capture is the index for matches
 	string[match_str]  #=>matched return or nil
 	string.empty?
 	string.include? "part"
 	string.next #=> "9".next => "10", '&lt&ltkoala>>'.succ => '&lt&ltkoalb>>'
-	string.scan(/pattern/)
-	string.scan(/pattern/) {|match| block}
+	string.scan(/regex/)
+	string.scan(/regex/) {|match| block}
 	string.start_with?(prefix1,prefix2,...) #=>return true if one of prefixes matches
 
 	#Modifying string
@@ -40,29 +40,22 @@
 	string.strip #both left and right
 	</code>
 	</pre>
-	<pre><span class="description">Read lines
-	</span><code>
-	string.each_line {|line| process line} #=>default separator $/
-	string.each_line('separator') {|line| process line}
-	string.lines(separator).to_a #=>return lines in array
-	</code>
-	</pre>
 
 	<pre><span class="description">.split
 	</span><code>
 	string.split  #split by space
 	string.split("") #split up all characters(including space)
 	string.split(char) #split at char
-	string.split(/pattern/) #split at matched pattern
+	string.split(/regex/) #split at matched pattern
 	</code>
 	</pre>
 
 	<pre><span class="description">.gsub, .sub
 	</span><code>
 	string.gsub("word1","word2") #substitue all word1 with word2
-	string.gsub(/pattern/,"word") #using regex 
-	string.gsub(/pattern/) {|match|  process match } #manipulate matched words
-	string.gsub(/pattern/,'e'=>3,'o'=>'*') #use hash to match different cases
+	string.gsub(/regex/,"word") #using regex 
+	string.gsub(/regex/) {|match|  process match } #manipulate matched words
+	string.gsub(/regex/,'e'=>3,'o'=>'*') #use hash to match different cases
 
 	</code>
 	</pre>	
@@ -70,7 +63,7 @@
 
 	<pre><span class="description">RegEx
 	</span><code>
-	"word" =~ /pattern/  # compare word with pattern,
+	"word" =~ /regex/  # compare word with pattern,
 			     #return first matching index
 			     #(could be 0!) or nil (not found)
 	</code>
@@ -183,6 +176,65 @@
 	"a1".upto("a8") {|A| print A}
 	1.upto(10) {...}
 	1.upto(10).to_a
+	</code>
+	</pre>
+
+	<h2 class="section">File Processing</h2>
+	<pre><span class="description">Basic Dir
+	</span><code>
+	Dir.chdir(path)  #=>change to path
+	Dir.chdir(path) {|path| block}
+	Dir.pwd    #=>current path
+	Dir.exist?(filename) 
+	Dir.foreach(path) {|filename| block}
+	Dir.home() , Dir.home("root")...
+	Dir.mkdir(name[, permission]) #i.e perm =0700, reutrn 0
+	Dir.delete(name) # returns 0
+	Dir.chroot(name)
+	Dir.entries(dirname) #return list of files
+	Dir.new(directory) #return new Dir obj for directory
+	Dir.open(directory){|aDir| block} #Dir.new with block
+	Dir.rmdir(directory) #return 0
+	Dir.close #close stream
+	</code>
+	</pre>
+	<pre><span class="description">Basic File
+	</span><code>
+	File.chmod(perm,filename,....)
+	File.delete(filename,...) #return number of arg
+	File.directory?(filename)
+	File.dirname(filename) #=>dir_name
+	File.executable?(filename)
+	File.exist?(filename)
+	File.ftype(filename) #filetype
+	File.join("usr", "mail", "gumby") #=> "usr/mail/gumby"
+	f= File.new("testfile", "r")
+	f= File.new("newfile",  "w+")
+	f= File.new("newfile", File::CREAT|File::TRUNC|File::RDWR, 0644)
+	File.symlink("testfile","lin2test") #=>0
+	File.readlink("link2test") #=>"testfile"
+	File.chmod(mode_int)
+	</code>
+	</pre>
+	<pre><span class="description">File search
+	</span><code>
+	Dir[pattern], Dir.glob(pattern) #=> return array of matched files
+	#pattern
+	# * matches any file, c*, *c, *c*
+	# ** matches directories recursively
+	# ? matches any one character
+	# [set], i.e [^a-z]), ^ means except
+	# match either {p,q}
+	# \ escape , for windows use "c:/foo"
+	#i.e. Dir.glob("*.[a-z][a-z]"), Dir.glob("*.[^r]*")
+	</code>
+	</pre>
+	<pre><span class="description">Working with files
+	</span><code>
+	File.open(filename, mode="r" [, opt]) #=>file
+	string.each_line {|line| process line} #=>default separator $/
+	string.each_line('separator') {|line| process line}
+	string.lines(separator).to_a #=>return lines in array
 	</code>
 	</pre>
 	</body>
