@@ -1,19 +1,49 @@
-.dark
-{
-	background-color:black;
-}
 
 body{
-	background-color:#666699;
+	background-color:#D1FFFF;
+	font-family:cursive;
+	font-weight:bold;
 }
+
+.tag{
+   font-weight:bold;
+   color:white;
+   background-color:black;
+   font-size:30pt;
+   border-radius:5px;
+}
+
+.content{
+	text-align: center;
+}
+
 
 .section
 {
-	color:red;
+	color:#33CCFF;
+	font-family: cursive;
+}
+
+table{
+	font-size: 12pt;
+	color:#990033;
+}
+
+th{
+	background-color:#EBEBEB ;
+}
+
+pre
+{
+	background-color: #00CC66;
+}
+
+.content .panel-body{
+    list-style: none;
+    font-size:14pt;
 }
 
 .description
 {
-	color:yellow;
-	font-style: italic;
+	color:#00CC66;
 }

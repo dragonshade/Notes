@@ -1,241 +1,301 @@
 <!DOCTYPE HTML>	
 <html>
 	<head>
-		<link rel="stylesheet" href="styles/rainbow.css">
+		<link rel="stylesheet" href="styles/yukina.css">
 		<script src="highlight.pack.js"></script>
 		<script>hljs.initHighlightingOnLoad();</script>
 		<link rel="stylesheet" href="myown.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<script src="js/bootstrap.min.js"></script>
 	</head>
-	<body>
-	<h2 class="section">String Manipulation</h2>
-	<pre><span class="description">Basic methods
-	</span><code>
-	#initializing string
-	%q{sentences}   # %q< > , %q{}, %q+ +,...
+<body>
 
-	#Accessing string
-	string[start,length]
-	string[range]
-	string[/regex/]  #=>extract match
-	string[/regex/,capture] #=>capture is the index for matches
-	string[match_str]  #=>matched return or nil
-	string.empty?
-	string.include? "part"
-	string.next #=> "9".next => "10", '&lt&ltkoala>>'.succ => '&lt&ltkoalb>>'
-	string.scan(/regex/)
-	string.scan(/regex/) {|match| block}
-	string.start_with?(prefix1,prefix2,...) #=>return true if one of prefixes matches
-
-	#Modifying string
-	string.capitalize
-	string.chars #=>equivalent to string.split("")
-	string.chomp #=> remove \n \r\n \r
-	string.chomp(part) #=> remove if part is at the end of string
-	string.upcase
-	string.downcase
-	"Koala".intern #=>:Koala , return symbol correspond to string
-	"Koala".to_sym #=>:Koala
-	"   a ".lstrip #=>"a " , strip off leading left white space.
-	" a   ".rstrip #=>" a"
-	string.strip #both left and right
-	</code>
-	</pre>
-
-	<pre><span class="description">.split
-	</span><code>
-	string.split  #split by space
-	string.split("") #split up all characters(including space)
-	string.split(char) #split at char
-	string.split(/regex/) #split at matched pattern
-	</code>
-	</pre>
-
-	<pre><span class="description">.gsub, .sub
-	</span><code>
-	string.gsub("word1","word2") #substitue all word1 with word2
-	string.gsub(/regex/,"word") #using regex 
-	string.gsub(/regex/) {|match|  process match } #manipulate matched words
-	string.gsub(/regex/,'e'=>3,'o'=>'*') #use hash to match different cases
-
-	</code>
-	</pre>	
+<div class="col-md-3"> <span class="tag">Ruby</span> </div>
+<div class="content col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading"><h2><a name="TableOfContent">Table of Content</a></h2></div>
+	<div class="content panel-body">
+	  <a href="#StringManipulation">String Manipulating</a> <br><br>
+	  <a href="#RegEx"> RegEx </a> <br><br>
+	  <a href="#ArrayManipulation">Array Manipulation</a> <br><br>
+	  <a href="#Snippets">Snippets </a> <br><br>
+	  <a href="#Enumerator">Enumerator</a> <br><br>
+	  <a href="#FileProcessing">File Processing</a>  <br><br>
+	</div>
+	</div>
+</div>
+<div class="col-md-3"></div>
 
 
-	<pre><span class="description">RegEx
-	</span><code>
-	"word" =~ /regex/  # compare word with pattern,
+<div class="col-md-6">
+<h2 class="section"><a name="StringManipulation">String Manipulation</a></h2>
+<span><a href="#TableOfContent">[back]</a></span>
+<pre><span class="description">Basic methods</span><code>
+#initializing string
+%q{sentences}   # %q< > , %q{}, %q+ +,...
+
+#Accessing string
+string[start,length]
+string[range]
+string[/regex/,capture] #=>capture is the index for matches
+string[match_str]  #=>matched return or nil
+string[/regex/]  #=>extract match
+string.empty?
+string.include? "part"
+string.next #=> "9".next => "10", '&lt&ltkoala>>'.succ => '&lt&ltkoalb>>'
+string.scan(/regex/)
+string.scan(/regex/) {|match| block}
+string.start_with?(prefix1,prefix2,...) #=>return true if one of prefixes matches
+
+#Modifying string
+string.capitalize
+string.chomp #=> remove \n \r\n \r
+string.chomp(part) #=> remove if part is at the end of string
+string.upcase
+string.downcase
+"Koala".intern #=>:Koala , return symbol correspond to string
+"Koala".to_sym #=>:Koala
+"   a ".lstrip #=>"a " , strip off leading left white space.
+" a   ".rstrip #=>" a"
+string.strip #both left and right
+
+#spliting
+string.split  #split by space
+string.split("") #split up all characters(including space)
+string.split(char) #split at char
+string.split(/regex/) #split at matched pattern
+
+#gsub
+string.gsub("word1","word2") #substitue all word1 with word2
+string.gsub(/regex/,"word") #using regex 
+string.gsub(/regex/) {|match|  process match } #manipulate matched words
+string.gsub(/regex/,'e'=>3,'o'=>'*') #use hash to match different cases
+
+#formatting
+#d for integer padding length less than string less doesn't do anything
+"%05d" % 123  #=> "00123"  pad with 0
+"%5d"  % 123  #=> "  123"  pad with space by default
+"%-5d" % 123  #=> "123  "  pad to right if negative
+"%-7s: %02d" % ["Second",8] #=> "Second : 08" , formatting two string
+"A"*5  #=> "AAAAA"
+</code></pre></div>
+
+
+<div class="col-md-6">
+<h2 class="section"> <a name="RegEx">RegEx</a> </h2>
+<span><a href="#TableOfContent">[back]</a></span>
+	<div class="panel panel-default">
+	<table class="table">
+		<th>Logic</th>
+		<tr>
+			<td>[ab],[^a],[a-g&&c-s]</td><td>a OR b, not a,intersection</td>
+			<td> | </td><td> or</td>
+		</tr>
+		<th>Metachar</th>
+		<tr>
+			<td>\w, \W</td><td>[a-zA-Z0-9_], [^a-zA-Z0-9]</td>
+			<td>\d,\D</td><td>[0-9],[^0-9]</td>
+		</tr>
+		<tr>
+			<td>\s,\S</td><td>space, non space</td>
+			<td>\h,\H</td><td>hex, non hex</td>
+		</tr>
+		<tr>
+			<td>.</td><td>Any char except newline</td>
+			<td>#{var}></td><td>interpolation</td>
+		</tr>
+		<th>Repetition</th>
+		<tr>
+			<td>*</td><td>zero or more times</td>
+			<td>+</td><td>one or more times</td>
+		</tr>
+		<tr>
+			<td>?</td><td>zero or one time</td>
+			<td>{n},{n,}</td><td>[n,n],[n,infty]</td>
+		</tr>
+		<tr>
+			<td>{,m}</td><td>[0,m]</td>
+			<td>{n,m}</td><td>[n,m]</td>
+		</tr>
+		<th>Match Group</td>
+		<tr>
+			<td>(?&ltgroup>def)pattern(&ltgroup>)</td><td>#&ltMatchData data1,group: data2</td>
+			<td></td><td></td>
+		</tr>
+		<th>Anchors</th>
+		<tr>
+			<td>^</td><td>beginning of line</td>
+			<td>&</td><td>end of line</td>
+		</tr>
+		<tr>
+			<td>\A</td><td>beginning of string</td>
+			<td>\Z</td><td>end of string before newline</td>
+		</tr>
+		<tr>
+			<td>(?=pat)</td><td>Positive lookahead</td>
+			<td>(?!pat)</td><td>Negative lookahead</td>
+		</tr>
+		<tr>
+			<td>(?&lt=pat)</td><td>Positive lookbehind</td>
+			<td>(?&lt!pat)</td><td>Negative lookbehind</td>
+		</tr>
+		<th>Options</th>
+		<tr>
+			<td>/regex/i</td><td>ignore case</td>
+			<td>/regex/m</td><td>newline is matched by .</td>
+		</tr>
+		<tr>
+			<td>/regex/x</td><td>ignore space and comments</td>
+			<td>//u,//e,//n</td><td>UTF-8,EUC-JP,ASCII</td>
+		</tr>
+	</table>
+    </div>
+<pre><span class="description">RegEx</span><code>
+"word" =~ /regex/  # compare word with pattern,
 			     #return first matching index
 			     #(could be 0!) or nil (not found)
-	</code>
-	</pre>
+</code></pre></div>
 
 
-	<pre><span class="description">Format
-		s for string, d for integer
-		padding length less than string less doesn't do anything
-	</span><code>
-	"%05d" % 123  #=> "00123"  pad with 0
-	"%5d"  % 123  #=> "  123"  pad with space by default
-	"%-5d" % 123  #=> "123  "  pad to right if negative
-	"%-7s: %02d" % ["Second",8] #=> "Second : 08" , formatting two string
-	"A"*5  #=> "AAAAA"
-	</code>
-	</pre>
+
+<div class="col-md-6">
+<h2 class="section"><a name="ArrayManipulation">Array Manipulation</a></h2>
+<span><a href="#TableOfContent">[back]</a></span>
+<pre><span class="description">Initialization</span><code>
+%w{1 2 3 4 5}   #=> ["1", "2", "3", "4", "5"]
+ary=Array.new   #=> []
+Array.new(3)    #=> [nil, nil, nil]
+#initialize with value
+Array.new(size,objects/value)
+#Takes a block
+Array.new(4) { Hash.new } #=> [{}, {}, {}, {}]
+Array.new(3) { Array.new(3) }
+
+array.fetch(index)  #=>Raise error for out of bound
+array.fetch(index,'error msg')
+array.first
+array.last
+array.length
+array.include?
+array[start.length]
+array[range]
 
 
-	<h2 class="section">Array Manipulation</h2>
-	<pre><span class="description">Initialization
-	</span><code>
-	%w{1 2 3 4 5}   #=> ["1", "2", "3", "4", "5"]
-	ary=Array.new   #=> []
-	Array.new(3)    #=> [nil, nil, nil]
-
-	#initialize with value
-	Array.new(size,objects/value)
-
-	#Takes a block
-	Array.new(4) { Hash.new } #=> [{}, {}, {}, {}]
-	Array.new(3) { Array.new(3) }
-	</code>
-	</pre>
-
-	<pre><span class="description">Access
-	</span><code>
-	array.fetch(index)  #=>Raise error for out of bound
-	array.fetch(index,'error msg')
-	array.first
-	array.last
-	array.length
-	array.include?
-	array[start.length]
-	array[range]
-
-
-	#each
-	array.each {|x| x.next}  #peek the next element
-	array.each_index {|i|... }  #the gets the index i instead of the element
-	array.each_with_index {|item,index| ....}
+#each
+array.each {|x| x.next}  #peek the next element
+array.each_index {|i|... }  #the gets the index i instead of the element
+array.each_with_index {|item,index| ....}
 	
-	#Binary Search
-	array.bsearch {|x| ...}
-	</code>
-	</pre>
+#Binary Search
+array.bsearch {|x| ...}
 
-	<pre><span class="description"> manipulation
-	</span><code>
-	array.insert(index,object) #insert
-	array.push(obj) #= array &lt&lt obj
-	array.pop  #=>pop the last item
-	array.shift #=>return 1st item and shift
-	array.delete_at(index) #=> return deleted element at index
-	array.delete(element) #=> delete all such element in 
-	array.compact #=> return copy of array without nils
-	array.uniq #=> remove duplicate
+array.insert(index,object) #insert
+array.push(obj) #= array &lt&lt obj
+array.pop  #=>pop the last item
+array.shift #=>return 1st item and shift
+array.delete_at(index) #=> return deleted element at index
+array.delete(element) #=> delete all such element in 
+array.compact #=> return copy of array without nils
+array.uniq #=> remove duplicate
 
-	#Collect/Map
-	array.collect {|x| process x} #=>return new array containing processed x
-	array.collect! {|x| process x} #=>change array elements.
+#Collect/Map
+array.collect {|x| process x} #=>return new array containing processed x
+array.collect! {|x| process x} #=>change array elements.
 
-	#Combination
-	array.combination(k).to_a #=> array of n choose k
+#Combination
+array.combination(k).to_a #=> array of n choose k
 
-	#Filtering
-	array.select {|a| a> 3}
-	array.reject {...}
-	array.drop_while {...}
+#Filtering
+array.select {|a| a> 3}
+array.reject {...}
+array.drop_while {...}
 
-	#Set Operation
-	array1 & array2 #=>distinct intersection
-	array1 - array2 #=>distinct difference
-	array1 + array2 #=>non distinct union
-	</code>
-	</pre>
+#Set Operation
+array1 & array2 #=>distinct intersection
+array1 - array2 #=>distinct difference
+array1 + array2 #=>non distinct union
 
-
-	<h2 class="section">Algorithm</h2>
-	<pre><span class="description">
-		Count numbers of characters in string
-	</span><code>
-	#can be used to check recurrence of chars
-	hash={}
-	string.split("").each do |x|
-		if hash[x].nil?
-			hash[x]=1
-		else
-			hash[x]+=1
-		end
-	end
-	</code>
-	</pre>	
+</code></pre></div>
 
 
 
-	<h2 class="section"> Enumerator </h2>
-	<pre><span class="description">
-	</span><code>
-	"a1".upto("a8") {|A| print A}
-	1.upto(10) {...}
-	1.upto(10).to_a
-	</code>
-	</pre>
+<div class="col-md-6">
+<h2 class="section"><a name="Snippets">Snippets</a></h2>
+<span><a href="#TableOfContent">[back]</a></span>
+<pre><span class="description">	Count numbers of characters in string</span><code>
+#can be used to check recurrence of chars
+hash={}
+string.split("").each do |x|
+	hash[x].nil? ? hash[x]=1 : hash[x]+=1
+end
+</code></pre></div>
 
-	<h2 class="section">File Processing</h2>
-	<pre><span class="description">Basic Dir
-	</span><code>
-	Dir.chdir(path)  #=>change to path
-	Dir.chdir(path) {|path| block}
-	Dir.pwd    #=>current path
-	Dir.exist?(filename) 
-	Dir.foreach(path) {|filename| block}
-	Dir.home() , Dir.home("root")...
-	Dir.mkdir(name[, permission]) #i.e perm =0700, reutrn 0
-	Dir.delete(name) # returns 0
-	Dir.chroot(name)
-	Dir.entries(dirname) #return list of files
-	Dir.new(directory) #return new Dir obj for directory
-	Dir.open(directory){|aDir| block} #Dir.new with block
-	Dir.rmdir(directory) #return 0
-	Dir.close #close stream
-	</code>
-	</pre>
-	<pre><span class="description">Basic File
-	</span><code>
-	File.chmod(perm,filename,....)
-	File.delete(filename,...) #return number of arg
-	File.directory?(filename)
-	File.dirname(filename) #=>dir_name
-	File.executable?(filename)
-	File.exist?(filename)
-	File.ftype(filename) #filetype
-	File.join("usr", "mail", "gumby") #=> "usr/mail/gumby"
-	f= File.new("testfile", "r")
-	f= File.new("newfile",  "w+")
-	f= File.new("newfile", File::CREAT|File::TRUNC|File::RDWR, 0644)
-	File.symlink("testfile","lin2test") #=>0
-	File.readlink("link2test") #=>"testfile"
-	File.chmod(mode_int)
-	</code>
-	</pre>
-	<pre><span class="description">File search
-	</span><code>
-	Dir[pattern], Dir.glob(pattern) #=> return array of matched files
-	#pattern
-	# * matches any file, c*, *c, *c*
-	# ** matches directories recursively
-	# ? matches any one character
-	# [set], i.e [^a-z]), ^ means except
-	# match either {p,q}
-	# \ escape , for windows use "c:/foo"
-	#i.e. Dir.glob("*.[a-z][a-z]"), Dir.glob("*.[^r]*")
-	</code>
-	</pre>
-	<pre><span class="description">Working with files
-	</span><code>
-	File.open(filename, mode="r" [, opt]) #=>file
-	string.each_line {|line| process line} #=>default separator $/
-	string.each_line('separator') {|line| process line}
-	string.lines(separator).to_a #=>return lines in array
-	</code>
-	</pre>
-	</body>
+
+<div class="col-md-6">
+<h2 class="section"> <a name="Enumerator">Enumerator</a> </h2>
+<span><a href="#TableOfContent">[back]</a></span>
+<pre><span class="description"></span><code>
+"a1".upto("a8") {|A| print A}
+1.upto(10) {...}
+1.upto(10).to_a
+</code></pre></div>
+
+
+
+<div class="col-md-6">
+<h2 class="section"><a name="FileProcessing">File Processing</a></h2>
+<span><a href="#TableOfContent">[back]</a></span>
+<pre><span class="description"></span><code>
+#Directory:
+Dir.chdir(path)  #=>change to path
+Dir.chdir(path) {|path| block}
+Dir.pwd    #=>current path
+Dir.exist?(filename) 
+Dir.foreach(path) {|filename| block}
+Dir.home() , Dir.home("root")...
+Dir.mkdir(name[, permission]) #i.e perm =0700, reutrn 0
+Dir.delete(name) # returns 0
+Dir.chroot(name)
+Dir.entries(dirname) #return list of files
+Dir.new(directory) #return new Dir obj for directory
+Dir.open(directory){|aDir| block} #Dir.new with block
+Dir.rmdir(directory) #return 0
+Dir.close #close stream
+
+#File
+File.chmod(perm,filename,....)
+File.delete(filename,...) #return number of arg
+File.directory?(filename)
+File.dirname(filename) #=>dir_name
+File.executable?(filename)
+File.exist?(filename)
+File.ftype(filename) #filetype
+File.join("usr", "mail", "gumby") #=> "usr/mail/gumby"
+f= File.new("testfile", "r")
+f= File.new("newfile",  "w+")
+f= File.new("newfile", File::CREAT|File::TRUNC|File::RDWR, 0644)
+File.symlink("testfile","lin2test") #=>0
+File.readlink("link2test") #=>"testfile"
+File.chmod(mode_int)
+
+#Search
+Dir[pattern], Dir.glob(pattern) #=> return array of matched files
+#pattern
+# * matches any file, c*, *c, *c*
+# ** matches directories recursively
+# ? matches any one character
+# [set], i.e [^a-z]), ^ means except
+# match either {p,q}
+# \ escape , for windows use "c:/foo"
+#i.e. Dir.glob("*.[a-z][a-z]"), Dir.glob("*.[^r]*")
+
+#Open file
+File.open(filename, mode="r" [, opt]) #=>file
+file_obj.open("filename",[option]).read  #read a file
+string.each_line {|line| process line} #=>default separator $/
+string.each_line('separator') {|line| process line}
+string.lines(separator).to_a #=>return lines in array
+</code></pre></div>
+
+</body>
 </html>
