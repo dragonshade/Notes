@@ -7,6 +7,7 @@ body{
 
 .tag{
    font-weight:bold;
+   padding: 2px;
    color:white;
    background-color:black;
    font-size:30pt;
@@ -47,4 +48,11 @@ pre
 {
 	font-size:12pt;
 	color:#CC66FF;
+}
+
+.tableTitle{
+	color:#990033;
+	font-weight:bold;
+	text-align: center;
+
 }

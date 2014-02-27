@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>	
+<html>
+<head>
+		<link rel="stylesheet" href="styles/yukina.css">
+		<script src="highlight.pack.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
+		<link rel="stylesheet" href="myown.css">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="col-md-3"> <span class="tag"><a href="ruby_notes.html">Ruby</a></span> <br><br>
+<span class="tag">Timer</span>
+</div>
+<div class="col-md-3">
+<pre> <span class="description">How they are tested </span>
+<code>
+def timer
+	start=Time.new
+	yield
+	end=Time.new
+	return end-start
+end
+</code>
+</pre>
+</div>
+<div class="col-md-9">
+	<div class="panel panel-default">
+	<div class="panel-heading"><h3 class="tableTitle">Delete the first char of a String</h3>
+<pre><code> 
+elapse=timer{
+	100000.times{
+    	string= "A"*10000+"B"*10000+"C"*10000
+    	yield
+    }
+}
+</code></pre></div>
+	<div class="panel-body">
+    <table class="table"> 
+ 	<tr><th>Codes </th> <th>Runtime(s)</th> </tr>
+ 	<tr><td><pre><code>string.slice!(0)</code></pre></td> 
+ 		<td>2.087713809</td><td> 2.115809756</td> <td>2.120019755</td>
+ 	</tr>
+ 	<tr><td><pre><code>string[1..-1]</code></pre></td> 
+ 		<td>2.13346504</td><td>2.108602391</td><td>2.121658824 </td>
+ 	</tr>
+ 	 <tr><td><pre><code>string[0]=''
+ 	</code></pre></td> <td>2.119370175</td><td>2.122416231</td><td>2.076225838</td>
+ 	</tr>
+ 	<tr><td><pre><code>#Dumb methods involve scanning
+string=string.split('')
+string.shift
+string.join
+#OR
+(/(?&lt=.).*/m).match(string).to_s
+#OR
+string.rpartition(/^./)[2]</code></pre></td> 
+ 		<td>Timeout</td><td>Timeout</td><td>Timeout</td>
+ 	</tr>
+
+
+   </table>
+    </div>
+	</div>
+</div>
+
+
+
+</body>
+</html>
