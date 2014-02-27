@@ -78,6 +78,14 @@ string.gsub(/regex/,'e'=>3,'o'=>'*') #use hash to match different cases
 "%-5d" % 123  #=> "123  "  pad to right if negative
 "%-7s: %02d" % ["Second",8] #=> "Second : 08" , formatting two string
 "A"*5  #=> "AAAAA"
+
+</code>
+<span class="description">Tricks</span><code>
+#delete the first char in string
+s="string"
+s[1..-1] # slower method
+s.slice!(0) # return "s", s becomes "tring", faster method
+
 </code></pre></div>
 
 
@@ -110,7 +118,7 @@ string.gsub(/regex/,'e'=>3,'o'=>'*') #use hash to match different cases
 			<td>+</td><td>one or more times</td>
 		</tr>
 		<tr>
-			<td>?</td><td>zero or one time</td>
+			<td>?</td><td>one or more, also non-greedy operator</td>
 			<td>{n},{n,}</td><td>[n,n],[n,infty]</td>
 		</tr>
 		<tr>
@@ -154,6 +162,15 @@ string.gsub(/regex/,'e'=>3,'o'=>'*') #use hash to match different cases
 "word" =~ /regex/  # compare word with pattern,
 			     #return first matching index
 			     #(could be 0!) or nil (not found)
+
+
+
+</code>
+<span class="description">#Tricks#</span><code>
+#Non-greedy operator ?:
+&lttag> data1 &lt/tag>data2 &lt/tag> data3 &lt/tag>
+/(?<=&lttag>).+(?=&lt\/tag>)/  # will match up to data3
+/(?<=&lttag>).+?(?=&lt\/tag>)/ #with non greedy operation, it stops at first occurence and matches only data 1
 </code></pre></div>
 
 
@@ -222,7 +239,7 @@ array1 + array2 #=>non distinct union
 <div class="col-md-6">
 <h2 class="section"><a name="Snippets">Snippets</a></h2>
 <span><a href="#TableOfContent">[back]</a></span>
-<pre><span class="description">	Count numbers of characters in string</span><code>
+<pre><span class="description">Count numbers of characters in string</span><code>
 #can be used to check recurrence of chars
 hash={}
 string.split("").each do |x|
